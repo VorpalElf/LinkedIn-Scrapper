@@ -39,7 +39,7 @@ async def main():
             await asyncio.sleep(15)
     with open('outputv5.md', 'w') as f:
         for idx, res in enumerate(results, 1):
-            res_str = str(res).replace("\\n", "\n")
+            res_str = str(res).replace("\\n", "\n").replace("extraction='","")
             f.write(f"\nJob {idx}:\n{res_str}\n")
 
 if __name__ == "__main__":
