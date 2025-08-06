@@ -12,7 +12,7 @@ working = []
 success_count = 0
 failed_count = 0
 
-max_response_time = 2  # seconds
+max_response_time = 10  # seconds
 
 for idx, proxy in enumerate(proxies, 1):
     try:
