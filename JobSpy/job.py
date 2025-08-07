@@ -1,3 +1,4 @@
+import os
 import csv
 from jobspy import scrape_jobs
 import pandas as pd
@@ -23,3 +24,4 @@ df = pd.read_csv("jobs.csv")
 df.insert(0, "job_number", range(1, len(df) + 1))
 df = df.drop(columns=["id"])
 df.to_csv("jobs_numbered.csv", index=False)
+os.remove("jobs.csv")
