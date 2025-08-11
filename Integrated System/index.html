@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Job Extractor</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/Integrated System/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Job Extractor</h1>
+  </header>
+
+  <main class="container">
+    <form id="job-form" class="card" method="POST" action="/api/search">
+      <h2 class="section-title">Search Parameters</h2>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="search_term">Search Term</label>
+          <input type="text" id="search_term" name="search_term" placeholder="e.g. Data Analyst" required autocomplete="off">
+        </div>
+
+        <div class="form-group full">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="e.g. United Kingdom" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="results_wanted">Results Wanted</label>
+          <input type="number" id="results_wanted" name="results_wanted" min="1" max="1000" placeholder="10">
+          <label for="hours_old" style="margin-top:1rem;">Hours Old</label>
+          <input type="number" id="hours_old" name="hours_old" min="1" max="100" placeholder="e.g. 24">
+  </body>
+  <script src="main.js"></script>
+        </div>
+
+        <fieldset class="form-group" aria-labelledby="site_sources_label">
+          <legend id="site_sources_label">Site Sources</legend>
+          <div class="checkbox-list">
+            <label><input type="checkbox" name="site_name" value="linkedin" checked> LinkedIn</label>
+            <label><input type="checkbox" name="site_name" value="indeed"> Indeed</label>
+            <label><input type="checkbox" name="site_name" value="glassdoor"> Glassdoor</label>
+            <label><input type="checkbox" name="site_name" value="zip_recruiter"> ZipRecruiter</label>
+            <label><input type="checkbox" name="site_name" value="monster"> Monster</label>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="fetch_description">Fetch Description</label>
+          <label class="switch">
+            <input type="checkbox" id="fetch_description" name="fetch_description" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="rotate_proxies">Rotate Proxies</label>
+            <label class="switch">
+              <input type="checkbox" id="rotate_proxies" name="rotate_proxies" checked>
+              <span class="slider"></span>
+            </label>
+        </div>
+
+        
+      </div>
+
+      <div class="actions">
+        <button type="reset" class="btn ghost">Reset</button>
+        <button type="submit" class="btn primary">Search Jobs</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Job Extractor</p>
+  </footer>
+
+    <!-- Spinner for loading state -->
+    <div id="loading-spinner" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:9999; background:rgba(255,255,255,0.8); padding:2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); text-align:center;">
+      <img src="loading.gif" alt="Loading..." style="width:40px;height:40px; display:block; margin:0 auto 1rem auto;">
+      <div style="font-size:1.2rem; color:#333;">Loading...</div>
+    </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
