@@ -55,6 +55,34 @@ body {
   letter-spacing: .5px;
   background: linear-gradient(90deg,#ffffff,#9fc7ff);
   -webkit-background-clip: text;
+/* Force day mode (light theme) */
+html, body {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+.site-header, .site-footer, .card, .container {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+input, select, textarea, button {
+  background: #fff !important;
+  color: #222 !important;
+  border-color: #ccc !important;
+}
+
+table {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+/* Remove any dark mode overrides */
+[data-theme="dark"], .dark-mode, .night, .dark {
+  background: #fff !important;
+  color: #222 !important;
+}
+
   color: transparent;
   font-weight: 600;
 }
@@ -152,22 +180,22 @@ input[type=text],
 input[type=number],
 select,
 textarea {
-  background: #151a21;
-  border: 1px solid #2a343f;
+  background: #fff !important;
+  border: 1px solid #222 !important;
   padding: .7rem .85rem;
   border-radius: var(--radius-m);
   font: inherit;
-  color: #e4e9f1;
+  color: #222 !important;
   outline: none;
   transition: border-color .18s, background .18s, box-shadow .18s;
   width: 100%;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 input:focus, select:focus, textarea:focus {
-  background: #000;            /* Solid black background */
-  color: #000;                 /* Black text */
-  font-weight: 300;            /* Thin font weight */
+  background: #fff !important;
+  color: #222 !important;
+  font-weight: 600;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(45,129,255,0.25);
 }

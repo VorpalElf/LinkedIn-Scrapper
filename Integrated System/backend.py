@@ -46,12 +46,35 @@ def JobSpy():
 
     # CSV Formatting
     df = pd.read_csv("jobs.csv")
+    # Only keep selected columns
+    keep_cols = [
+        "title",
+        "company",
+        "location",
+        "date_posted",
+        "description",
+        "company_url",
+        "company_num_employees"
+    ]
+    # Insert job_number as first column
     df.insert(0, "job_number", range(1, len(df) + 1))
-    df = df.drop(columns=["id"])
+    # Filter columns
+    df = df[[col for col in ["job_number"] + keep_cols if col in df.columns]]
     df.to_csv("jobs_numbered.csv", index=False)
     os.remove("jobs.csv")
 
     return jsonify({"message": "Job extraction complete!", "count": len(df)})
+
+
+# New endpoint to serve jobs_numbered.csv as JSON
+@app.route("/jobs", methods=["GET"])
+def get_jobs():
+    try:
+        df = pd.read_csv("jobs_numbered.csv")
+        jobs = df.to_dict(orient="records")
+        return jsonify(jobs)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host="192.168.1.143", port=5000)
