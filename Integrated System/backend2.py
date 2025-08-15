@@ -90,11 +90,12 @@ def apollo_bulk_enrich():
 
     # Call Apollo bulk enrichment API
     apollo_url = f"https://api.apollo.io/api/v1/organizations/bulk_enrich?" + "&".join([f"domains[]={d}" for d in domains])
+    apollo_api_key = os.environ.get("APOLLO_API_KEY", "")
     headers = {
         "accept": "application/json",
         "Cache-Control": "no-cache",
         "Content-Type": "application/json",
-        "x-api-key": "-Dapnpp9DM6vnZoKUO2WFQ"
+        "x-api-key": apollo_api_key
     }
     try:
         response = requests.post(apollo_url, headers=headers)
@@ -112,6 +113,15 @@ def apollo_bulk_enrich():
             return jsonify({"error": "Apollo API call failed", "status": response.status_code, "response": response.text}), 500
 
         # Update jobs_numbered.csv with SUM department headcount only
+        # Add or update 'company_num_employees' column
+        if "company_num_employees" not in df.columns:
+            df["company_num_employees"] = ""
+        for idx, row in df.iterrows():
+            url = row.get("company_url", None)
+            match = re.search(r'https?://(?:www\.)?([^/]+)', str(url))
+            domain = match.group(1) if match else None
+            if domain in org_results:
+                df.at[idx, "company_num_employees"] = str(org_results[domain])
         # Remove 'countEmploy' column if present
         if "countEmploy" in df.columns:
             df = df.drop(columns=["countEmploy"])
